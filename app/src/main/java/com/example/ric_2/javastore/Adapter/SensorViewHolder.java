@@ -9,9 +9,10 @@ import android.widget.TextView;
 import com.example.ric_2.javastore.Interface.ItemClickListener;
 import com.example.ric_2.javastore.R;
 
-public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class SensorViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
     ImageView img_articulo;
-    TextView txt_menu_name;
+    TextView txt_sensor_name, txt_price;
 
     ItemClickListener itemClickListener;
 
@@ -19,11 +20,12 @@ public class CategoryViewHolder extends RecyclerView.ViewHolder implements View.
         this.itemClickListener = itemClickListener;
     }
 
-    public CategoryViewHolder(View itemView) {
+    public SensorViewHolder(@NonNull View itemView) {
         super(itemView);
 
         img_articulo=(ImageView)itemView.findViewById(R.id.img_articulo);
-        txt_menu_name=(TextView)itemView.findViewById(R.id.txt_menu_name);
+        txt_sensor_name=(TextView) itemView.findViewById(R.id.txt_sensor_name);
+        txt_price=(TextView)itemView.findViewById(R.id.txt_sensor_price);
 
         itemView.setOnClickListener(this);
     }

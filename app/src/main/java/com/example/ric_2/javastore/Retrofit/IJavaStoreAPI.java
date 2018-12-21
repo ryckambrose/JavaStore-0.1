@@ -3,10 +3,12 @@ package com.example.ric_2.javastore.Retrofit;
 import com.example.ric_2.javastore.Model.Banner;
 import com.example.ric_2.javastore.Model.Category;
 import com.example.ric_2.javastore.Model.CheckUserResponse;
+import com.example.ric_2.javastore.Model.Sensor;
 import com.example.ric_2.javastore.Model.User;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -24,6 +26,10 @@ public interface IJavaStoreAPI {
                               @Field("name")String name,
                               @Field("address")String address,
                               @Field("birthdate")String birthdate);
+
+    @FormUrlEncoded
+    @POST("getsensor.php")
+    Observable<List<Sensor>> getSensor(@Field("menuid")String menuID);
 
     @FormUrlEncoded
     @POST("getuser.php")
