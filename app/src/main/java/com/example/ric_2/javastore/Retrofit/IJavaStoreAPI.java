@@ -1,6 +1,7 @@
 package com.example.ric_2.javastore.Retrofit;
 
 import com.example.ric_2.javastore.Model.Banner;
+import com.example.ric_2.javastore.Model.Category;
 import com.example.ric_2.javastore.Model.CheckUserResponse;
 import com.example.ric_2.javastore.Model.User;
 
@@ -31,4 +32,6 @@ public interface IJavaStoreAPI {
     @GET("getbanner.php")
     io.reactivex.Observable<List<Banner>> getBanners();
 
+    @GET("getmenu.php")
+    io.reactivex.Observable<List<Category>> getMenu();
 }
