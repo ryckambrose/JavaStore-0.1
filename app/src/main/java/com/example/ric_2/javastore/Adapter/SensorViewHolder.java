@@ -3,6 +3,7 @@ package com.example.ric_2.javastore.Adapter;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,8 @@ public class SensorViewHolder extends RecyclerView.ViewHolder implements View.On
 
     ItemClickListener itemClickListener;
 
+    Button btn_add_car;
+
     public void setItemClickListener(ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
@@ -26,6 +29,7 @@ public class SensorViewHolder extends RecyclerView.ViewHolder implements View.On
         img_articulo=(ImageView)itemView.findViewById(R.id.img_articulo);
         txt_sensor_name=(TextView) itemView.findViewById(R.id.txt_sensor_name);
         txt_price=(TextView)itemView.findViewById(R.id.txt_sensor_price);
+        btn_add_car=(Button)itemView.findViewById(R.id.btn_add_cart);
 
         itemView.setOnClickListener(this);
     }
