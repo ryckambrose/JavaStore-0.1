@@ -22,6 +22,7 @@ import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.ric_2.javastore.Adapter.CategoryAdapter;
 import com.example.ric_2.javastore.Model.Banner;
 import com.example.ric_2.javastore.Model.Category;
+import com.example.ric_2.javastore.Model.Sensor;
 import com.example.ric_2.javastore.Retrofit.IJavaStoreAPI;
 import com.example.ric_2.javastore.Utils.Common;
 
@@ -87,6 +88,21 @@ public class HomeActivity extends AppCompatActivity
         getBannerImage();
         
         getMenu();
+
+        getToppingList();
+    }
+
+    private void getToppingList() {
+        compositeDisposable.add(mService.getSensor(Common.TOPPING_MENU_ID)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<Sensor>>() {
+                    @Override
+                    public void accept(List<Sensor> sensors) throws Exception {
+                        Common.toppingList=sensors;
+                    }
+                }));
+
     }
 
     private void getMenu() {
