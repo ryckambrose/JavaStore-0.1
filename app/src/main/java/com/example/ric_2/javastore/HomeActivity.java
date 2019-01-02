@@ -20,6 +20,9 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.example.ric_2.javastore.Adapter.CategoryAdapter;
+import com.example.ric_2.javastore.Database.DataSource.CartRepository;
+import com.example.ric_2.javastore.Database.Local.CartDataSource;
+import com.example.ric_2.javastore.Database.Local.CartDatabase;
 import com.example.ric_2.javastore.Model.Banner;
 import com.example.ric_2.javastore.Model.Category;
 import com.example.ric_2.javastore.Model.Sensor;
@@ -90,6 +93,15 @@ public class HomeActivity extends AppCompatActivity
         getMenu();
 
         getToppingList();
+
+        //Inicia database
+        initDB();
+    }
+
+    private void initDB() {
+        Common.cartDatabase=CartDatabase.getInstance(this);
+        Common.cartRepository=CartRepository.getInstance(CartDataSource.getInstance(Common.cartDatabase.cartDAO()));
+
     }
 
     private void getToppingList() {

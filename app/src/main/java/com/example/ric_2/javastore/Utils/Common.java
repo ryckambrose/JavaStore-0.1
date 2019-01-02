@@ -1,5 +1,7 @@
 package com.example.ric_2.javastore.Utils;
 
+import com.example.ric_2.javastore.Database.DataSource.CartRepository;
+import com.example.ric_2.javastore.Database.Local.CartDatabase;
 import com.example.ric_2.javastore.Model.Category;
 import com.example.ric_2.javastore.Model.Sensor;
 import com.example.ric_2.javastore.Model.User;
@@ -24,6 +26,10 @@ public class Common {
     public static int nivel_1=-1;//-1: no choice(error), 0:M, 1:L
     public static int nivel_2=-1;//-1: no choice(error)
     public static int nivel_3=-1;//-1: no choice(error)
+
+    //Database
+    public static CartDatabase cartDatabase;
+    public static CartRepository cartRepository;
 
 
     public static IJavaStoreAPI getAPI(){

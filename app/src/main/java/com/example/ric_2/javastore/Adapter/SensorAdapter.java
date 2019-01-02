@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +18,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
+import com.example.ric_2.javastore.Database.ModelDB.Cart;
 import com.example.ric_2.javastore.Interface.ItemClickListener;
 import com.example.ric_2.javastore.Model.Sensor;
 import com.example.ric_2.javastore.R;
 import com.example.ric_2.javastore.Utils.Common;
+import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
+import java.security.spec.ECField;
 import java.util.List;
 
 public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
@@ -180,31 +184,31 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
                     Toast.makeText(context, "Escoge una opcion nivel 2", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(Common.nivel_3==-1)
+                /*if(Common.nivel_3==-1)
                 {
                     Toast.makeText(context, "Escoge una opcion nivel 3", Toast.LENGTH_SHORT).show();
                     return;
-                }
+                }*/
 
-                showConfirmDialog(position,txt_count.getNumber(),Common.nivel_1,Common.nivel_2,Common.nivel_3);
+                showConfirmDialog(position,txt_count.getNumber());
                 dialogInterface.dismiss();
             }
         });
         builder.show();
     }
 
-    private void showConfirmDialog(int position, String number, int nivel_1, int nivel_2, int nivel_3) {
+    private void showConfirmDialog(int position, final String number) {
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         View itemView=LayoutInflater.from(context)
                 .inflate(R.layout.confirm_add_to_cart_layout,null);
 
         //vista
         ImageView img_article_dialog=(ImageView)itemView.findViewById(R.id.img_articulo);
-        TextView txt_article_dialog=(TextView)itemView.findViewById(R.id.txt_cart_article_name);
+        final TextView txt_article_dialog=(TextView)itemView.findViewById(R.id.txt_cart_article_name);
         TextView txt_article_price=(TextView)itemView.findViewById(R.id.txt_cart_article_price);
         TextView txt_nivel_1=(TextView)itemView.findViewById(R.id.txt_nivel_1);
         TextView txt_nivel_2=(TextView)itemView.findViewById(R.id.txt_nivel_2);
-        TextView txt_nivel_3=(TextView)itemView.findViewById(R.id.txt_character_extra);
+        final TextView txt_nivel_3=(TextView)itemView.findViewById(R.id.txt_character_extra);
 
         //Coloca datos
         Picasso.with(context).load(sensorList.get(position).getLink()).into(img_article_dialog);
@@ -228,11 +232,32 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
 
         txt_nivel_3.setText(final_comment);
 
+        final double finalPrice = price;
         builder.setNegativeButton("CONFIRMAR", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //Agrega a SQLite
                 dialogInterface.dismiss();
+
+                //Crea un nuevo carrito
+                try {
+
+                    Cart cartItem =new Cart();
+                    cartItem.name=txt_article_dialog.getText().toString();
+                    cartItem.amount=Integer.parseInt(number);
+                    cartItem.nivel1=Common.nivel_1;
+                    cartItem.nivel2=Common.nivel_2;
+                    cartItem.price= finalPrice;
+                    cartItem.extra=txt_nivel_3.getText().toString();
+
+                    //agrega a BD
+                    Common.cartRepository.insertToCart(cartItem);
+                    Log.d("DEBUG",new Gson().toJson(cartItem));
+                    Toast.makeText(context,"Articulo agregado al carrito", Toast.LENGTH_SHORT).show();
+
+                }catch (Exception ex){
+                    Toast.makeText(context, ex.getMessage(), Toast.LENGTH_SHORT).show();
+                }
             }
         });
         builder.setView(itemView);
