@@ -40,9 +40,9 @@ public class SensorActivity extends AppCompatActivity {
         lst_sensor.setHasFixedSize(true);
 
         txt_banner_name=(TextView)findViewById(R.id.txt_menu_name);
-        txt_banner_name.setText(Common.currentCategory.getName());
+        txt_banner_name.setText(Common.currentCategory.Name);
 
-        loadListSensor(Common.currentCategory.getID());
+        loadListSensor(Common.currentCategory.ID);
 
     }
 

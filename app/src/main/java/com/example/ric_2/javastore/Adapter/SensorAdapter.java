@@ -48,8 +48,8 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull SensorViewHolder sensorViewHolder, final int i) {
-        sensorViewHolder.txt_price.setText(new StringBuilder("$").append(sensorList.get(i).getPrice().toString()));
-        sensorViewHolder.txt_sensor_name.setText(sensorList.get(i).getName());
+        sensorViewHolder.txt_price.setText(new StringBuilder("$").append(sensorList.get(i).Price).toString());
+        sensorViewHolder.txt_sensor_name.setText(sensorList.get(i).Name);
 
         sensorViewHolder.btn_add_car.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +59,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
         });
 
         Picasso.with(context)
-                .load(sensorList.get(i).getLink())
+                .load(sensorList.get(i).Link)
                 .into(sensorViewHolder.img_articulo);
 
 
@@ -71,7 +71,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
         });
     }
 
-    private void showAddToCartDialog(int i) {
+    private void showAddToCartDialog(final int i) {
         AlertDialog.Builder builder=new AlertDialog.Builder(context);
         View itemView=LayoutInflater.from(context)
                                     .inflate(R.layout.add_to_cart,null);
@@ -165,9 +165,9 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
 
         //Coloca datos
         Picasso.with(context)
-                .load(sensorList.get(i).getLink())
+                .load(sensorList.get(i).Link)
                 .into(img_article_dialog);
-        txt_article_dialog.setText(sensorList.get(i).getName());
+        txt_article_dialog.setText(sensorList.get(i).Name);
 
         builder.setView(itemView);
         builder.setNegativeButton("Añadir al Carrito", new DialogInterface.OnClickListener() {
@@ -190,7 +190,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
                     return;
                 }*/
 
-                showConfirmDialog(position,txt_count.getNumber());
+                showConfirmDialog(i,txt_count.getNumber());
                 dialogInterface.dismiss();
             }
         });
@@ -211,15 +211,15 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
         final TextView txt_nivel_3=(TextView)itemView.findViewById(R.id.txt_character_extra);
 
         //Coloca datos
-        Picasso.with(context).load(sensorList.get(position).getLink()).into(img_article_dialog);
-        txt_article_dialog.setText(new StringBuilder(sensorList.get(position).getName()).append("x")
+        Picasso.with(context).load(sensorList.get(position).Link).into(img_article_dialog);
+        txt_article_dialog.setText(new StringBuilder(sensorList.get(position).Name).append("x")
         .append(number)
         .append(Common.nivel_1==0?"Opcion 1":"Opcion 2").toString());
 
         txt_nivel_1.setText(new StringBuilder("Nivel 1:").append(Common.nivel_1).append("X").toString());
         txt_nivel_2.setText(new StringBuilder("Nivel 2:").append(Common.nivel_2).append("Y").toString());
 
-        double price=(Double.parseDouble(sensorList.get(position).getPrice())*Double.parseDouble(number))+Common.toppingPrice;
+        double price=(Double.parseDouble(sensorList.get(position).Price)*Double.parseDouble(number))+Common.toppingPrice;
 
         if(Common.nivel_1==1)
             price+=3.0;
@@ -252,7 +252,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorViewHolder> {
 
                     //agrega a BD
                     Common.cartRepository.insertToCart(cartItem);
-                    Log.d("DEBUG",new Gson().toJson(cartItem));
+                    Log.d("RIC_DEBUG",new Gson().toJson(cartItem));
                     Toast.makeText(context,"Articulo agregado al carrito", Toast.LENGTH_SHORT).show();
 
                 }catch (Exception ex){

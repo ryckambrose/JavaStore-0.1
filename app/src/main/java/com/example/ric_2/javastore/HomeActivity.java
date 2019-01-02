@@ -85,8 +85,8 @@ public class HomeActivity extends AppCompatActivity
         txt_name=(TextView)headerView.findViewById(R.id.txt_name);
         txt_phone=(TextView)headerView.findViewById(R.id.txt_phone);
 
-        txt_name.setText(Common.currentUser.getName());
-        txt_phone.setText(Common.currentUser.getPhone());
+//        txt_name.setText(Common.currentUser.getName());
+       // txt_phone.setText(Common.currentUser.getPhone());
 
         getBannerImage();
         

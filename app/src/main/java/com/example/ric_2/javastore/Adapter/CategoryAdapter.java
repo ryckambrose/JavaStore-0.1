@@ -38,9 +38,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryViewHolder> {
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, final int position) {
         //Carga imagen
         Picasso.with(context)
-                .load(categories.get(position).getLink())
+                .load(categories.get(position).Link)
                 .into(holder.img_articulo);
-        holder.txt_menu_name.setText(categories.get(position).getName());
+        holder.txt_menu_name.setText(categories.get(position).Name);
 
         //eventos
         holder.setItemClickListener(new ItemClickListener() {
